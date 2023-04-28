@@ -6,7 +6,7 @@ module.exports = init({
     esm: true,
     graphql: true,
     typescript: {
-      parserProject: ['./tsconfig.eslint.json'],
+      parserProject: ['./tsconfig.json'],
       resolverProject: ['./tsconfig.json'],
     },
   },

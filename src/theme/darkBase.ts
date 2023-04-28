@@ -66,7 +66,7 @@ export const gradients: IGradients = {
   },
 };
 
-export const lightBase: ITheme = {
+export const darkBase: ITheme = {
   palette,
   gradients,
   shadows: {
