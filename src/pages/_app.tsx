@@ -1,3 +1,6 @@
+// not a good approch, but there is no way to load package styles
+import 'react-perfect-scrollbar/dist/css/styles.css';
+
 import {
   Hydrate,
   QueryClient,
@@ -11,6 +14,7 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '@/styles/GlobalStyles';
 
 const App = ({ Component, pageProps }: AppProps) => {
+  // react-query creation (hydrated)
   const [queryClient] = useState(
     () =>
       new QueryClient({

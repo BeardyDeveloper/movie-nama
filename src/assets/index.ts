@@ -1,1 +1,1 @@
-export { default as CloseSvg } from './icons/Close.svg';
+export { default as CloseSVG } from './icons/Close.svg';
