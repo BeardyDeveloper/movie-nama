@@ -1,38 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Movie Search
 
-## Getting Started
+Welcome to the Movie Search Challenge! Your task is to build a simple movie search application using Next.js that requires user authentication. The application should allow users to search for movies by title and display the results in a list. Users should also be able to click on a movie in the list to see more details.
 
-First, run the development server:
+## Requirements
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+Your application should meet the following requirements:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Authentication
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- Implement user authentication using a mock authentication service that simulates the behavior of a real authentication service.
+- Users should be able to log in using their email (e.g. Sincere@april.biz) as the email and their username (e.g. Bret) as the password.
+- After successful authentication, the user should be redirected to the movie search page.
+  You can use [JSONPlaceholder Fake Online REST API](https://jsonplaceholder.typicode.com/) to simulate user authentication. You can use the `/users` endpoint to fetch user data.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### Movie Search
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- Users should be able to search for movies by entering a title into a search bar.
+- The application should display a list of movies matching the search criteria. For each movie, display the title, year and poster if available.
+- The user should be able to click on a movie in the list to see more details. Display the title, year, rating, plot summary and any other relevant information.
+- Implement pagination on the movie search results page so that the user can browse through multiple pages of results.
+- Implement sorting and filtering options so that the user can sort the results by various criteria (e.g. year, rating) and filter the results based on various attributes (e.g. genre, release year).
+- Implement a "favorites" feature that allows logged-in users to add movies to a list of favorite movies. You can use local storage to store the user's favorites list.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Technical Requirements
 
-## Learn More
+- Use Typescript throughout the entire codebase to ensure type safety.
+- Use a state management tool like Redux, Zustand or others to manage the application's state.
+- Use a data fetching library like react-query, SWR or others to consume a public API where you can obtain information on movies. You can use the following links:
+  - The Open Movie Database (OMDb) API - http://www.omdbapi.com/
+- Use Formik and Yup or others to handle the user input when searching for movies and logging in.
+- Use a UI library like MUI, Antd, Tailwind or others to make the application look polished and professional.
+- Ensure that your code is well-structured, reusable, and easy to understand.
 
-To learn more about Next.js, take a look at the following resources:
+## Deadline
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+You have 2 days (14 hours) to complete this task.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Good luck!
