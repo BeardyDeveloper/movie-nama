@@ -16,5 +16,8 @@ module.exports = init({
   rules: {
     'react/react-in-jsx-scope': 'off',
     'max-lines-per-function': 'off',
+    'import/no-cycle': 'off',
+    'fp/no-let': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
   },
 });
