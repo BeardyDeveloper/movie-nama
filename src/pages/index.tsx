@@ -1,5 +1,7 @@
 import { Layout } from '@layout/Layout';
-import { NextPage } from 'next';
+import { deleteCookie, getCookie } from 'cookies-next';
+import { NextPage, NextPageContext } from 'next';
+import { AppContext } from 'next/app';
 
 const Home = () => {
   return <>sdfsd</>;

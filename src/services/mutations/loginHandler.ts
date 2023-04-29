@@ -1,5 +1,4 @@
 import { LoginFormValues } from '@components/private/auth/LoginForm/LoginForm';
-import { queryAxiosInstance } from '@lib/axiosInstance';
 import { ResponseProps } from '@/pages/api/Interfaces';
 import axios from 'axios';
 

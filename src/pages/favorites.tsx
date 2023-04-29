@@ -1,5 +1,6 @@
 import { Layout } from '@layout/Layout';
-import { NextPage } from 'next';
+import { getCookie } from 'cookies-next';
+import { NextPage, NextPageContext } from 'next';
 
 const Favorites = () => {
   return <></>;

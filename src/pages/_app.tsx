@@ -16,6 +16,7 @@ import { GlobalStyle } from '@/styles/GlobalStyles';
 import { NextComponentType, NextPage } from 'next';
 import { AppLayoutProps } from 'next/app';
 import { ToasterContainer } from '@sharedComponents/Toaster/ToasterContainer/ToasterContainer';
+import { RouteGuard } from '@/components/layout/RouteGuard';
 
 const App: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
   Component,
@@ -42,7 +43,7 @@ const App: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
       <GlobalStyle language="en" />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          {getLayout(<Component {...pageProps} />)}
+          <RouteGuard>{getLayout(<Component {...pageProps} />)}</RouteGuard>
           <ToasterContainer />
         </Hydrate>
       </QueryClientProvider>
