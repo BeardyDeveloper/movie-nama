@@ -7,13 +7,19 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { darkBase } from '@theme/darkBase';
-import type { AppProps } from 'next/app';
+import type { AppContext, AppInitialProps, AppProps } from 'next/app';
 import { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
+import { ReactNode } from 'react';
 
 import { GlobalStyle } from '@/styles/GlobalStyles';
+import { NextComponentType, NextPage } from 'next';
+import { AppLayoutProps } from 'next/app';
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
+  Component,
+  pageProps,
+}: AppLayoutProps) => {
   // react-query creation (hydrated)
   const [queryClient] = useState(
     () =>
@@ -27,12 +33,15 @@ const App = ({ Component, pageProps }: AppProps) => {
       }),
   );
 
+  // get page layout if exists, if not just render blank page
+  const getLayout = Component.getLayout || ((page: ReactNode) => page);
+
   return (
     <ThemeProvider theme={darkBase}>
       <GlobalStyle language="en" />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <Component {...pageProps} />
+          {getLayout(<Component {...pageProps} />)}
         </Hydrate>
       </QueryClientProvider>
     </ThemeProvider>

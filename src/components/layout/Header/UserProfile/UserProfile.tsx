@@ -41,7 +41,7 @@ export const UserProfile: FC<UserProfileProps> = props => {
             exit={{ opacity: 0 }}
           >
             <Option>
-              <Link href="/Favorites">Favorite Movies</Link>
+              <Link href="/favorites">Favorite Movies</Link>
             </Option>
             <Option onClick={onLogOut}>Log Out</Option>
           </Menu>
