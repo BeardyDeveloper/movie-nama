@@ -8,4 +8,5 @@ const Home = () => {
 Home.getLayout = function getLayout(page: NextPage) {
   return <Layout>{page}</Layout>;
 };
+
 export default Home;

@@ -5,8 +5,8 @@ const Favorites = () => {
   return <></>;
 };
 
-export default Favorites;
-
 Favorites.getLayout = function getLayout(page: NextPage) {
   return <Layout>{page}</Layout>;
 };
+
+export default Favorites;
