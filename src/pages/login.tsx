@@ -18,11 +18,12 @@ const Login = () => {
     mutationFn: (userInfo: LoginFormValues) => handleLogin(userInfo),
     onSuccess: response => {
       const token = response.payload?.token;
+      const userId = response.payload?.user.id;
 
       if (token != null) {
-        console.log(token);
         setCookie('token', token, { path: '/' });
-        router.replace('/');
+        setCookie('userId', userId, { path: '/' });
+        router.push('/');
       }
     },
     onError: (error: ErrorProps) =>

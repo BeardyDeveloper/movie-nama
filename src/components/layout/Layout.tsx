@@ -3,6 +3,10 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import styled, { css } from 'styled-components';
 
 import { Header } from './Header/Header';
+import { deleteCookie, getCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
+import { useQuery } from '@tanstack/react-query';
+import { getUserInfo } from '@/services/queries/getUserInfo';
 
 interface LayoutProps {
   children: any;
@@ -11,13 +15,28 @@ interface LayoutProps {
 export const Layout: FC<LayoutProps> = props => {
   const { children } = props;
 
+  const router = useRouter();
+  const userId = getCookie('userId') as string;
+
+  // fetch current user info
+  const { data, isLoading } = useQuery({
+    queryKey: ['user-info'],
+    queryFn: () => getUserInfo(userId),
+  });
+
+  const onLogOut = (): void => {
+    deleteCookie('token', { path: '/' });
+    deleteCookie('userId', { path: '/' });
+    router.push('/login');
+  };
+
   return (
     <Wrapper>
       <Header
-        userName="fake"
+        userName={isLoading ? 'loading...' : data?.payload?.user?.name!}
         isDarkMode={true}
         onSwitchTheme={() => console.log('')}
-        onLogOut={() => console.log('')}
+        onLogOut={onLogOut}
       />
       <Main>
         <PerfectScrollbar>
