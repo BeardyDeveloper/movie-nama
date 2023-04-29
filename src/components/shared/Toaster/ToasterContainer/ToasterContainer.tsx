@@ -1,4 +1,4 @@
-import { CloseSvg } from '@assets/index';
+import { CloseSVG } from '@assets/index';
 import colorAlpha from 'color-alpha';
 import type { FC } from 'react';
 import React from 'react';
@@ -25,7 +25,7 @@ export const ToasterContainer: FC<ToasterContainerProps> = props => {
       closeOnClick
       icon={null}
       closeButton={(args: any) => (
-        <CloseSvg onClick={args.closeToast} {...args} />
+        <CloseSVG onClick={args.closeToast} {...args} />
       )}
     />
   );

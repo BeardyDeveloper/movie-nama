@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
-interface LoginFormValues {
+export interface LoginFormValues {
   email: string;
   password: string;
 }
@@ -25,6 +25,7 @@ export const LoginForm: FC<LoginFormProps> = props => {
     watch,
     setValue,
     formState: { errors },
+    getValues,
   } = methods;
 
   const onSubmit = (values: LoginFormValues) => {

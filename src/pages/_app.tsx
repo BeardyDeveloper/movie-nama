@@ -1,4 +1,4 @@
-// not a good approch, but there is no way to load package styles
+import 'react-toastify/dist/ReactToastify.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
 import {
@@ -15,6 +15,7 @@ import { ReactNode } from 'react';
 import { GlobalStyle } from '@/styles/GlobalStyles';
 import { NextComponentType, NextPage } from 'next';
 import { AppLayoutProps } from 'next/app';
+import { ToasterContainer } from '@sharedComponents/Toaster/ToasterContainer/ToasterContainer';
 
 const App: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
   Component,
@@ -42,6 +43,7 @@ const App: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           {getLayout(<Component {...pageProps} />)}
+          <ToasterContainer />
         </Hydrate>
       </QueryClientProvider>
     </ThemeProvider>

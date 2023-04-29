@@ -1,12 +1,39 @@
-import { LoginForm } from '@components/private/auth/LoginForm/LoginForm';
+import { handleLogin } from '@/services/mutations/loginHandler';
+import {
+  LoginForm,
+  LoginFormValues,
+} from '@components/private/auth/LoginForm/LoginForm';
+import { useMutation } from '@tanstack/react-query';
 import styled, { css } from 'styled-components';
+import { ErrorProps } from './api/Interfaces';
+import { setCookie } from 'cookies-next';
+import { useRouter } from 'next/router';
+import { ToastType, toaster } from '@sharedComponents/Toaster/Toaster';
 
 const Login = () => {
+  const router = useRouter();
+
+  const { mutate } = useMutation({
+    mutationFn: (userInfo: LoginFormValues) => handleLogin(userInfo),
+    onSuccess: response => {
+      const token = response.payload?.token;
+
+      if (token != null) {
+        setCookie('token', token, { path: '/' });
+        router.replace('/');
+      }
+    },
+    onError: (error: ErrorProps) =>
+      toaster(ToastType.Error, {
+        title: error.response.data?.message,
+      }),
+  });
+
   return (
     <Container>
       <Form>
         <Title>Log In</Title>
-        <LoginForm onLogin={values => console.log(values)} />
+        <LoginForm onLogin={values => mutate(values)} />
       </Form>
     </Container>
   );
