@@ -7,6 +7,7 @@ import { deleteCookie, getCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { useQuery } from '@tanstack/react-query';
 import { getUserInfo } from '@/services/queries/getUserInfo';
+import useGlobalStore from '@/store/globalStore';
 
 interface LayoutProps {
   children: any;
@@ -17,6 +18,8 @@ export const Layout: FC<LayoutProps> = props => {
 
   const router = useRouter();
   const userId = getCookie('userId') as string;
+  const isDarkMode = useGlobalStore(state => state.darkMode);
+  const changeTheme = useGlobalStore(state => state.changeTheme);
 
   // fetch current user info
   const { data, isLoading } = useQuery({
@@ -34,8 +37,8 @@ export const Layout: FC<LayoutProps> = props => {
     <Wrapper>
       <Header
         userName={isLoading ? 'loading...' : data?.payload?.user?.name!}
-        isDarkMode={true}
-        onSwitchTheme={() => console.log('')}
+        isDarkMode={isDarkMode}
+        onSwitchTheme={changeTheme}
         onLogOut={onLogOut}
       />
       <Main>

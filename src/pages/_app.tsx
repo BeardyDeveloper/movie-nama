@@ -17,11 +17,15 @@ import { NextComponentType, NextPage } from 'next';
 import { AppLayoutProps } from 'next/app';
 import { ToasterContainer } from '@sharedComponents/Toaster/ToasterContainer/ToasterContainer';
 import { RouteGuard } from '@/components/layout/RouteGuard';
+import useGlobalStore from '@/store/globalStore';
+import { lightBase } from '@/theme/lightBase';
 
 const App: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
   Component,
   pageProps,
 }: AppLayoutProps) => {
+  const isDarkMode = useGlobalStore(state => state.darkMode);
+
   // react-query creation (hydrated)
   const [queryClient] = useState(
     () =>
@@ -39,7 +43,7 @@ const App: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = ({
   const getLayout = Component.getLayout || ((page: ReactNode) => page);
 
   return (
-    <ThemeProvider theme={darkBase}>
+    <ThemeProvider theme={isDarkMode ? darkBase : lightBase}>
       <GlobalStyle language="en" />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
