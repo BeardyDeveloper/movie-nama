@@ -3,10 +3,11 @@ const { init } = require('@fullstacksjs/eslint-config/init');
 module.exports = init({
   modules: {
     auto: true,
+    react: 'next',
     esm: true,
     graphql: true,
+    import: true,
     typescript: {
-      parserProject: ['./tsconfig.json'],
       resolverProject: ['./tsconfig.json'],
     },
   },
@@ -19,5 +20,12 @@ module.exports = init({
     'import/no-cycle': 'off',
     'fp/no-let': 'off',
     '@typescript-eslint/no-use-before-define': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project: ['tsconfig.json'],
+      },
+    },
   },
 });
