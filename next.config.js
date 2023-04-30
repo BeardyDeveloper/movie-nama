@@ -4,6 +4,7 @@ const nextConfig = {
   reactStrictMode: true,
   env: {
     APP_TITLE: process.env.APP_TITLE || 'Movienama',
+    API_KEY: process.env.API_KEY || '5f47e1936002363288a3a8d5b0b9a4c6',
   },
 
   webpack(config) {

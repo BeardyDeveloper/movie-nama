@@ -1,7 +1,7 @@
 import { Checkbox } from '@sharedComponents/Check/Check';
 import { Button, ButtonVariant } from '@sharedComponents/Button/Button';
 import { FormInput } from '@sharedComponents/FormInput/FormInput';
-import { Category2, FilterSearch, Star1 } from 'iconsax-react';
+import { Category2, FilterSearch, Sort, Star1 } from 'iconsax-react';
 import { FC } from 'react';
 import { useRef } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
@@ -10,11 +10,11 @@ import {
   SelectDefaultOptionProps,
   SelectInput,
 } from '@sharedComponents/SelectInput/SelectInput';
-import { movieGenresList, movieRatesList } from './helpers';
+import { movieGenresList, movieRatesList, movieSortsList } from './helpers';
 import { DatePicker } from '@sharedComponents/DatePicker/DatePicker';
 
-export interface SearchFormValues {
-  title: string;
+export interface MovieSearchFormValues {
+  sort: SelectDefaultOptionProps;
   rate: SelectDefaultOptionProps;
   genre: SelectDefaultOptionProps;
   year: Date;
@@ -23,7 +23,7 @@ export interface SearchFormValues {
 
 interface SearchFormProps {
   isLoading?: boolean;
-  onSearch: (values: SearchFormValues) => void;
+  onSearch: (values: MovieSearchFormValues) => void;
 }
 
 export const SearchForm: FC<SearchFormProps> = props => {
@@ -31,7 +31,7 @@ export const SearchForm: FC<SearchFormProps> = props => {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const methods = useForm<SearchFormValues>();
+  const methods = useForm<MovieSearchFormValues>();
   const {
     handleSubmit,
     watch,
@@ -40,7 +40,7 @@ export const SearchForm: FC<SearchFormProps> = props => {
     formState: { errors },
   } = methods;
 
-  const onSubmit = (values: SearchFormValues): void => {
+  const onSubmit = (values: MovieSearchFormValues): void => {
     if (Object.keys(errors).length === 0) {
       onSearch(values);
     }
@@ -51,13 +51,24 @@ export const SearchForm: FC<SearchFormProps> = props => {
       <FormProvider {...methods}>
         <form ref={formRef}>
           <Field>
-            <FormInput
-              value={watch('title')}
-              name="title"
-              label="Title"
-              placeholder="movie title"
-              validationText={errors?.title?.message}
-              onClear={() => setValue('title', '')}
+            <Controller
+              control={control}
+              name="sort"
+              render={({ field: { onBlur, onChange, value, ref } }) => {
+                return (
+                  <SelectInput
+                    ref={ref}
+                    options={movieSortsList}
+                    icon={<Sort />}
+                    value={value || ''}
+                    label="Sort type"
+                    placeholder="select a sort type"
+                    loading={!movieRatesList}
+                    onChange={onChange}
+                    onBlur={onBlur}
+                  />
+                );
+              }}
             />
           </Field>
           <InputGroup>

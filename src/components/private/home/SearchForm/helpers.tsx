@@ -9,6 +9,11 @@ interface RatesListOptionProps {
   value: number;
 }
 
+interface SortsListOptionProps {
+  label: string;
+  value: string;
+}
+
 export const movieGenresList: GenresListOptionProps[] = [
   { id: 28, value: 'Action', label: 'Action' },
   { id: 12, value: 'Adventure', label: 'Adventure' },
@@ -27,6 +32,17 @@ export const movieGenresList: GenresListOptionProps[] = [
   { id: 10770, value: 'TV Movie', label: 'TV Movie' },
   { id: 10752, value: 'War', label: 'War' },
   { id: 37, value: 'Western', label: 'Western' },
+];
+
+export const movieSortsList: SortsListOptionProps[] = [
+  { value: 'popularity.asc', label: 'popularity.asc' },
+  { value: 'popularity.desc', label: 'popularity.desc' },
+  { value: 'release_date.asc', label: 'release_date.asc' },
+  { value: 'release_date.desc', label: 'release_date.desc' },
+  { value: 'vote_count.asc', label: 'vote_count.asc' },
+  { value: 'vote_count.desc', label: 'vote_count.desc' },
+  { value: 'vote_average.asc', label: 'vote_average.asc' },
+  { value: 'vote_average.desc', label: 'vote_average.desc' },
 ];
 
 export const movieRatesList: RatesListOptionProps[] = [
