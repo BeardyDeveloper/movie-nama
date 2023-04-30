@@ -1,4 +1,4 @@
-import { SearchResultList } from '@components/private/movies/SearchResult/SearchResultList';
+import { FavoriteMoviesList } from '@components/private/favorites/FavoriteMoviesList/FavoriteMoviesList';
 import { Layout } from '@layout/Layout';
 import { ArrowLeft } from 'iconsax-react';
 import { NextPage } from 'next';
@@ -14,7 +14,7 @@ const Favorites = () => {
           <Label>Back to Home</Label>
         </BackButton>
       </Link>
-      <SearchResultList />
+      <FavoriteMoviesList />
     </Container>
   );
 };

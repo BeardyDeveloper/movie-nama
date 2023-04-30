@@ -3,28 +3,21 @@ import { FC } from 'react';
 import { MovieCard } from '@/components/private/movies/MovieCard/MovieCard';
 import { NothingFound } from '@/components/layout/boundaries/NothingFound/NothingFound';
 import { ChartFail } from 'iconsax-react';
-import { TMDBMovieItemResponseProps } from '@/services/IServices';
 import { useFavMovieBookmark } from '@/hooks/helpers/useFavMovieBookmark';
 
-interface SearchResultListProps {
-  list?: TMDBMovieItemResponseProps[];
-}
-
-export const SearchResultList: FC<SearchResultListProps> = props => {
-  const { list } = props;
-
+export const FavoriteMoviesList: FC = () => {
   const { favMovies, onAddNewMovie, onDeleteMovie } = useFavMovieBookmark();
 
-  if (list == null || list?.length === 0) {
+  if (favMovies == null || favMovies?.length === 0) {
     return (
       <Container>
-        <NothingFound icon={<ChartFail size={36} />} title="No result found!" />
+        <NothingFound icon={<ChartFail size={36} />} title="No Movie found!" />
       </Container>
     );
   } else {
     return (
       <Container>
-        {list.map(item => {
+        {favMovies.map(item => {
           const isFavorite = favMovies.findIndex(fav => fav.id === item.id);
 
           return (
