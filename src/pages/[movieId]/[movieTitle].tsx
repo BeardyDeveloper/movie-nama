@@ -20,7 +20,6 @@ const MoviePage = () => {
     queryFn: () => getMovieDetails(Number(movieId)),
   });
 
-  console.log(data);
   return (
     <Container>
       <Link href="/">

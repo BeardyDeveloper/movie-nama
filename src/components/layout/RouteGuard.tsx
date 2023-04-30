@@ -28,7 +28,6 @@ export const RouteGuard = ({ children }: any) => {
     const token = getCookie('token');
     const publicPaths = ['/login'];
     const path = url.split('?')[0] as string;
-    console.log(path);
 
     if (!token) {
       if (!publicPaths.includes(path)) {
