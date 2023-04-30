@@ -1,15 +1,9 @@
-import { ResponseProps } from '@/pages/api/Interfaces';
 import axios from 'axios';
+import { TMDBResponseProps, TMDBMovieItemResponseProps } from '../IServices';
 
-interface GetMovieDetailsProps {
-  page: number;
-  movieId: number;
-}
-
-export const getMovieDetails = ({
-  page,
-  movieId,
-}: GetMovieDetailsProps): Promise<ResponseProps> =>
+export const getMovieDetails = (
+  movieId: number,
+): Promise<TMDBMovieItemResponseProps> =>
   axios
     .get(
       `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env['API_KEY']}&language=en-US`,

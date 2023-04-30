@@ -1,21 +1,16 @@
 import { SearchResultList } from '@components/private/movies/SearchResult/SearchResultList';
-import {
-  MovieSearchFormValues,
-  SearchForm,
-} from '@components/private/home/SearchForm/SearchForm';
+import { SearchForm } from '@components/private/home/SearchForm/SearchForm';
 import { Layout } from '@layout/Layout';
 import { NextPage } from 'next';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { searchMovies } from '@/services/queries/searchMovies';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { ToastType, toaster } from '@/components/shared/Toaster/Toaster';
-import { ErrorProps } from 'next/error';
 import {
   DiscoverMoviesProps,
   discoverMovies,
 } from '@/services/queries/discoverMovies';
-import { TMDBResponseProps } from '@/services/IServices';
+import { TMDBErrorProps } from '@/services/IServices';
 import { Pagination } from '@/components/shared/Pagination/Pagination';
 
 const Home = () => {
@@ -24,15 +19,18 @@ const Home = () => {
   const [discoverValues, setDiscoverValues] = useState<DiscoverMoviesProps>();
   const [page, setPage] = useState<number>(1);
 
-  const { data, isFetching, isPreviousData, refetch } =
-    useQuery<TMDBResponseProps>({
-      queryKey: ['discoverd-movies', page],
-      keepPreviousData: true,
-      staleTime: 5000,
-      refetchOnWindowFocus: false,
-      enabled: false,
-      queryFn: () => discoverMovies(page + 1, discoverValues!),
-    });
+  const { data, isFetching, isPreviousData, refetch } = useQuery({
+    queryKey: ['discoverd-movies', page],
+    keepPreviousData: true,
+    staleTime: 5000,
+    refetchOnWindowFocus: false,
+    enabled: false,
+    queryFn: () => discoverMovies(page + 1, discoverValues!),
+    onError: (error: TMDBErrorProps) =>
+      toaster(ToastType.Error, {
+        title: error.response.data?.status_message,
+      }),
+  });
 
   // Prefetch the next page!
   useEffect(() => {

@@ -42,6 +42,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 18px;
 `;
 
 const StyledRCPagination = styled(RCPagination)`
@@ -71,7 +72,7 @@ const StyledRCPagination = styled(RCPagination)`
     .rc-pagination-next:focus {
       outline: none;
       cursor: pointer;
-      color: ${theme.text.main.primary};
+      color: ${theme.text.reverse.primary};
     }
 
     .rc-pagination-prev,
@@ -99,10 +100,10 @@ const StyledRCPagination = styled(RCPagination)`
       align-items: center;
       margin: 0 9px;
       cursor: pointer;
-      color: ${theme.text.main.primary};
+      color: ${theme.text.reverse.primary};
       background-color: transparent;
       & > svg {
-        fill: ${theme.text.main.primary};
+        fill: ${theme.text.reverse.primary};
       }
     }
 
@@ -127,7 +128,7 @@ const StyledRCPagination = styled(RCPagination)`
         justify-content: center;
         align-items: center;
         text-align: center;
-        color: ${theme.text.main.primary};
+        color: ${theme.text.reverse.primary};
       }
     }
 

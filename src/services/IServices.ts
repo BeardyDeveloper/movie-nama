@@ -21,3 +21,12 @@ export interface TMDBResponseProps {
   total_pages: number;
   total_results: number;
 }
+
+export interface TMDBErrorProps {
+  message?: string;
+  response: {
+    data: {
+      status_message: string;
+    };
+  };
+}
