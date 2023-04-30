@@ -1,22 +1,23 @@
 import styled from 'styled-components';
 import { FC } from 'react';
-import {
-  MovieCard,
-  MovieCardItemProps,
-} from '@/components/private/movies/MovieCard/MovieCard';
+import { MovieCard } from '@/components/private/movies/MovieCard/MovieCard';
 import { NothingFound } from '@/components/layout/boundaries/NothingFound/NothingFound';
 import { ChartFail } from 'iconsax-react';
 import { TMDBMovieItemResponseProps } from '@/services/IServices';
+import { useFavMovieBookmark } from '@/hooks/helpers/useFavMovieBookmark';
 
 interface SearchResultListProps {
   list?: TMDBMovieItemResponseProps[];
-  onMovieBookMark: (data: TMDBMovieItemResponseProps) => void;
 }
 
 export const SearchResultList: FC<SearchResultListProps> = props => {
-  const { list, onMovieBookMark } = props;
+  const { list } = props;
 
-  if (list == null || list?.length === 0) {
+  const { favMovies, onAddNewMovie, onDeleteMovie } = useFavMovieBookmark();
+
+  const moviesList = list ?? favMovies;
+
+  if (moviesList == null || moviesList?.length === 0) {
     return (
       <Container>
         <NothingFound icon={<ChartFail size={36} />} title="No result found!" />
@@ -25,8 +26,8 @@ export const SearchResultList: FC<SearchResultListProps> = props => {
   } else {
     return (
       <Container>
-        {list.map(item => {
-          const isFavorite = false;
+        {moviesList.map(item => {
+          const isFavorite = favMovies.findIndex(fav => fav.id === item.id);
 
           return (
             <MovieCard
@@ -36,9 +37,11 @@ export const SearchResultList: FC<SearchResultListProps> = props => {
                 date: item.release_date,
                 rate: item.vote_average,
                 image: item.poster_path,
-                isFavorite,
+                isFavorite: isFavorite != -1,
               }}
-              onBookMark={() => onMovieBookMark(item)}
+              onBookMark={() =>
+                isFavorite != -1 ? onDeleteMovie(item.id) : onAddNewMovie(item)
+              }
             />
           );
         })}

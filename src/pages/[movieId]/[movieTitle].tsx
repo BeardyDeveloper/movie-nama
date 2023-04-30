@@ -42,7 +42,7 @@ const MoviePage = () => {
           </CoverBox>
         </ImageRow>
         <Info>
-          <Title>Title</Title>
+          <Title>Name</Title>
           <SubTitle>{data?.title}</SubTitle>
         </Info>
         <Info>
@@ -144,7 +144,7 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-bottom: 32px;
+  margin-bottom: 42px;
 `;
 
 const Title = styled.span`
@@ -158,11 +158,11 @@ const Title = styled.span`
   `}
 `;
 
-const SubTitle = styled.span`
+const SubTitle = styled.p`
   margin-top: 8px;
   font-size: 16px;
   font-weight: 600;
-  white-space: nowrap;
+  white-space: normal;
   ${({ theme }) => css`
     color: ${theme.text.main.primary};
   `}

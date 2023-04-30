@@ -55,10 +55,7 @@ const Home = () => {
         isLoading={isFetching}
         onSearch={values => setDiscoverValues(values)}
       />
-      <SearchResultList
-        list={data?.results}
-        onMovieBookMark={() => console.log('')}
-      />
+      <SearchResultList list={data?.results} />
       {data?.results && data.total_pages > 1 ? (
         <Pagination
           total={data?.total_pages > 500 ? 500 : data?.total_pages!}
