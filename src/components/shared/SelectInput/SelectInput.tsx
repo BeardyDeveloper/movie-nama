@@ -29,7 +29,7 @@ export enum SekectMenuPlacement {
 export interface SelectInputProps {
   loading?: boolean;
   icon?: ReactElement;
-  value?: SelectDefaultOptionProps;
+  value?: SelectDefaultOptionProps | SelectDefaultOptionProps[];
   options: SelectDefaultOptionProps[];
   defaultValue?: SelectDefaultOptionProps;
   menuPlacement?: SekectMenuPlacement;
@@ -68,7 +68,7 @@ export const SelectInput = forwardRef<any, SelectInputProps>(
 
     const theme = useTheme();
 
-    const Control = customControl(value?.icon ?? icon);
+    const Control = customControl(icon);
 
     return (
       <Container className={className}>

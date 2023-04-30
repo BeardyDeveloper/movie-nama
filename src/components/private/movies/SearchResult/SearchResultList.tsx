@@ -6,10 +6,11 @@ import {
 } from '@/components/private/movies/MovieCard/MovieCard';
 import { NothingFound } from '@/components/layout/boundaries/NothingFound/NothingFound';
 import { ChartFail } from 'iconsax-react';
+import { TMDBMovieItemResponseProps } from '@/services/IServices';
 
 interface SearchResultListProps {
-  list?: MovieCardItemProps[];
-  onMovieBookMark: (data: MovieCardItemProps) => void;
+  list?: TMDBMovieItemResponseProps[];
+  onMovieBookMark: (data: TMDBMovieItemResponseProps) => void;
 }
 
 export const SearchResultList: FC<SearchResultListProps> = props => {
@@ -25,8 +26,20 @@ export const SearchResultList: FC<SearchResultListProps> = props => {
     return (
       <Container>
         {list.map(item => {
+          const isFavorite = false;
+
           return (
-            <MovieCard data={item} onBookMark={() => onMovieBookMark(item)} />
+            <MovieCard
+              data={{
+                id: item.id,
+                title: item.title,
+                date: item.release_date,
+                rate: item.vote_average,
+                image: item.poster_path,
+                isFavorite,
+              }}
+              onBookMark={() => onMovieBookMark(item)}
+            />
           );
         })}
       </Container>

@@ -2,6 +2,10 @@ import { ArchiveAdd, ArrowRight2 } from 'iconsax-react';
 import Link from 'next/link';
 import React, { FC } from 'react';
 import styled, { css, useTheme } from 'styled-components';
+import LinesEllipsis from 'react-lines-ellipsis';
+import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC';
+
+const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis);
 
 export interface MovieCardItemProps {
   id?: string;
@@ -27,9 +31,13 @@ export const MovieCard: FC<MovieCardProps> = props => {
     <Container>
       <TitlesCell>
         <MovieCardImgCover>
-          {image ? <MovieCardImg src={image} /> : null}
+          {image ? (
+            <MovieCardImg src={`https://image.tmdb.org/t/p/w200/${image}`} />
+          ) : null}
         </MovieCardImgCover>
-        <MovieTitle>{title}</MovieTitle>
+        <MovieTitleBox>
+          <MovieTitle text={title} maxLine={1} ellipsis="..."></MovieTitle>
+        </MovieTitleBox>
       </TitlesCell>
 
       <DateCell>
@@ -72,9 +80,11 @@ const Container = styled.div`
 `;
 
 const TitlesCell = styled.div`
+  width: calc(42% - 32px);
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  margin-right: 12px;
 `;
 
 const MovieCardImgCover = styled.div`
@@ -100,11 +110,17 @@ const MovieCardImg = styled.img`
   z-index: 1;
 `;
 
-const MovieTitle = styled.span`
+const MovieTitleBox = styled.div`
+  position: relative;
+  width: 100%;
+  white-space: normal;
+`;
+
+const MovieTitle = styled(ResponsiveEllipsis)`
+  width: 100%;
   font-size: 16px;
   font-weight: 700;
   margin-left: 8px;
-  white-space: nowrap;
   ${({ theme }) => css`
     color: ${theme.text.main.primary};
   `}
@@ -132,18 +148,21 @@ const SubTitle = styled.span`
 `;
 
 const DateCell = styled.div`
+  width: calc(30% - 20px);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 `;
 
 const RateCell = styled.div`
+  width: calc(25% - 20px);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 `;
 
 const ActionsCell = styled.div`
+  width: 100px;
   display: flex;
   justify-content: flex-end;
   align-items: center;

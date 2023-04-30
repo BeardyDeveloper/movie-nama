@@ -12,18 +12,19 @@ import {
 } from '@sharedComponents/SelectInput/SelectInput';
 import { movieGenresList, movieRatesList, movieSortsList } from './helpers';
 import { DatePicker } from '@sharedComponents/DatePicker/DatePicker';
+import { DiscoverMoviesProps } from '@/services/queries/discoverMovies';
 
 export interface MovieSearchFormValues {
   sort: SelectDefaultOptionProps;
   rate: SelectDefaultOptionProps;
-  genre: SelectDefaultOptionProps;
+  genres: SelectDefaultOptionProps[];
   year: Date;
   includeAdult: boolean;
 }
 
 interface SearchFormProps {
   isLoading?: boolean;
-  onSearch: (values: MovieSearchFormValues) => void;
+  onSearch: (values: DiscoverMoviesProps) => void;
 }
 
 export const SearchForm: FC<SearchFormProps> = props => {
@@ -34,15 +35,23 @@ export const SearchForm: FC<SearchFormProps> = props => {
   const methods = useForm<MovieSearchFormValues>();
   const {
     handleSubmit,
-    watch,
-    setValue,
     control,
     formState: { errors },
   } = methods;
 
   const onSubmit = (values: MovieSearchFormValues): void => {
     if (Object.keys(errors).length === 0) {
-      onSearch(values);
+      const result = {
+        sort: values.sort ? values.sort.value : '',
+        rate: values.rate ? values.rate.value : '',
+        genres: values.genres
+          ? values.genres.map(genre => genre.id).join(',')
+          : '',
+        year: values.year ?? '',
+        includeAdult: values.includeAdult ?? false,
+      };
+
+      onSearch(result);
     }
   };
 
@@ -118,7 +127,7 @@ export const SearchForm: FC<SearchFormProps> = props => {
           <Field>
             <Controller
               control={control}
-              name="genre"
+              name="genres"
               render={({ field: { onBlur, onChange, value, ref } }) => {
                 return (
                   <SelectInput
@@ -128,7 +137,7 @@ export const SearchForm: FC<SearchFormProps> = props => {
                     icon={<Category2 />}
                     value={value || ''}
                     label="Genre"
-                    placeholder="select a genre"
+                    placeholder="select the genres"
                     loading={!movieGenresList}
                     onChange={onChange}
                     onBlur={onBlur}
