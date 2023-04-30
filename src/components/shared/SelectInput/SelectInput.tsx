@@ -1,6 +1,5 @@
 import type { ReactElement } from 'react';
 import React, { forwardRef } from 'react';
-import ReactDOMServer from 'react-dom/server';
 import Select from 'react-select';
 import styled, { css, useTheme } from 'styled-components';
 
@@ -41,7 +40,6 @@ export interface SelectInputProps {
   menuLeft?: string;
   disabled?: boolean;
   validationText?: string;
-  tooltip?: JSX.Element | string;
   className?: string;
   onChange: (args?: any) => void;
   onBlur?: (args?: any) => void;
@@ -63,7 +61,6 @@ export const SelectInput = forwardRef<any, SelectInputProps>(
       menuLeft,
       disabled,
       validationText,
-      tooltip,
       className,
       onChange,
       onBlur,
@@ -76,15 +73,7 @@ export const SelectInput = forwardRef<any, SelectInputProps>(
     return (
       <Container className={className}>
         <Label disabled={disabled}>{label}</Label>
-        <FieldBox
-          data-html
-          data-tip={
-            typeof tooltip === 'object'
-              ? ReactDOMServer.renderToString(tooltip)
-              : tooltip
-          }
-          disabled={disabled}
-        >
+        <FieldBox disabled={disabled}>
           <StyledSelect
             components={{
               Control,

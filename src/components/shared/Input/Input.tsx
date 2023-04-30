@@ -4,7 +4,6 @@ import { useOnClickOutside } from '@hooks/common/useOnClickOutside';
 import { Eye, EyeSlash } from 'iconsax-react';
 import type { MouseEvent, ReactElement } from 'react';
 import React, { forwardRef, useRef, useState } from 'react';
-import ReactDOMServer from 'react-dom/server';
 import styled, { css } from 'styled-components';
 
 export enum InputType {
@@ -28,7 +27,6 @@ export interface InputProps {
   hideCloseIcon?: boolean;
   validationText?: string;
   maxValue?: number;
-  tooltip?: JSX.Element | string;
   className?: string;
   onChange?: (value: any) => void;
   onBlur?: (args?: any) => void;
@@ -51,7 +49,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       disabled,
       hideCloseIcon,
       validationText,
-      tooltip,
       className,
       onChange,
       onClear,
@@ -114,12 +111,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           error={validationText != null}
           isFocused={isFocused}
           disabled={disabled}
-          data-html
-          data-tip={
-            typeof tooltip === 'object'
-              ? ReactDOMServer.renderToString(tooltip)
-              : tooltip
-          }
           onClick={!disabled ? onInputFocus : undefined}
         >
           {icon ? (

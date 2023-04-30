@@ -11,12 +11,13 @@ import {
   SelectInput,
 } from '@sharedComponents/SelectInput/SelectInput';
 import { movieGenresList, movieRatesList } from './helpers';
+import { DatePicker } from '@sharedComponents/DatePicker/DatePicker';
 
 export interface SearchFormValues {
   title: string;
   rate: SelectDefaultOptionProps;
   genre: SelectDefaultOptionProps;
-  year: string;
+  year: Date;
   includeAdult: boolean;
 }
 
@@ -54,6 +55,7 @@ export const SearchForm: FC<SearchFormProps> = props => {
               value={watch('title')}
               name="title"
               label="Title"
+              placeholder="movie title"
               validationText={errors?.title?.message}
               onClear={() => setValue('title', '')}
             />
@@ -72,6 +74,7 @@ export const SearchForm: FC<SearchFormProps> = props => {
                         icon={<Star1 />}
                         value={value || ''}
                         label="Rate (gte)"
+                        placeholder="select a rate"
                         loading={!movieRatesList}
                         onChange={onChange}
                         onBlur={onBlur}
@@ -83,12 +86,20 @@ export const SearchForm: FC<SearchFormProps> = props => {
             </Column>
             <Column colWidth="49%">
               <Field>
-                <FormInput
-                  value={watch('year')}
+                <Controller
+                  control={control}
                   name="year"
-                  label="Year"
-                  validationText={errors?.year?.message}
-                  onClear={() => setValue('year', '')}
+                  render={({ field: { onChange, value, ref } }) => {
+                    return (
+                      <DatePicker
+                        ref={ref}
+                        value={value || ''}
+                        placeholder="pick a date"
+                        label="Release date (gte)"
+                        onChange={date => onChange(date?.toDate())}
+                      />
+                    );
+                  }}
                 />
               </Field>
             </Column>
@@ -106,6 +117,7 @@ export const SearchForm: FC<SearchFormProps> = props => {
                     icon={<Category2 />}
                     value={value || ''}
                     label="Genre"
+                    placeholder="select a genre"
                     loading={!movieGenresList}
                     onChange={onChange}
                     onBlur={onBlur}
