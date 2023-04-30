@@ -1,3 +1,4 @@
+import { SearchResultList } from '@components/private/movies/SearchResult/SearchResultList';
 import { SearchForm } from '@components/private/home/SearchForm/SearchForm';
 import { Layout } from '@layout/Layout';
 import { NextPage } from 'next';
@@ -7,6 +8,7 @@ const Home = () => {
   return (
     <Container>
       <SearchForm isLoading={false} onSearch={values => console.log('')} />
+      {/* <SearchResultList list={} onMovieBookMark={} /> */}
     </Container>
   );
 };
