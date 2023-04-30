@@ -1,7 +1,23 @@
-export const selectStyles = ({ menuWidth, menuLeft, theme, error }) => ({
-  container: (provided, state) => {
+import { ContainerProps, OptionProps, SingleValueProps } from 'react-select';
+import { ITheme } from '@theme/ITheme';
+import colorAlpha from 'color-alpha';
+
+interface SelectStylesProps {
+  menuWidth?: string;
+  menuLeft?: string;
+  theme: ITheme;
+  error?: boolean;
+}
+
+export const selectStyles = ({
+  menuWidth,
+  menuLeft,
+  theme,
+  error,
+}: SelectStylesProps) => ({
+  container: (styles: any, state: ContainerProps) => {
     return {
-      ...provided,
+      ...styles,
       'height': 'auto',
       'borderRadius': '8px',
       'overflow': 'hodden',
@@ -29,7 +45,7 @@ export const selectStyles = ({ menuWidth, menuLeft, theme, error }) => ({
       },
     };
   },
-  menu: styles => ({
+  menu: (styles: any) => ({
     ...styles,
     width: menuWidth ?? '100%',
     left: menuLeft ?? 0,
@@ -40,20 +56,20 @@ export const selectStyles = ({ menuWidth, menuLeft, theme, error }) => ({
     padding: '8px 0',
     height: 'auto',
   }),
-  menuList: styles => ({
+  menuList: (styles: any) => ({
     ...styles,
     height: '325px',
     maxHeight: '325px',
   }),
-  menuPortal: styles => ({ ...styles, zIndex: 9999 }),
-  option: (provided, state) => {
+  menuPortal: (styles: any) => ({ ...styles, zIndex: 9999 }),
+  option: (styles: any, state: OptionProps) => {
     return {
-      ...provided,
+      ...styles,
       'width': '100%',
       'height': '47px',
       'borderBottom': 'none',
       'cursor': 'pointer',
-      'color': theme.palette.Basic.Main,
+      'color': theme.cmp.input.color,
       'backgroundColor': state.isSelected ? theme.palette.Brand[500] : 'none',
       'padding': '8px 16px',
       'margin': '2px 0',
@@ -61,21 +77,20 @@ export const selectStyles = ({ menuWidth, menuLeft, theme, error }) => ({
       'borderRadius': '8px',
       'display': 'flex',
       ':active': {
-        // react-select types can not detect suedo classes!
-        ...provided[':active'],
+        ...styles[':active'],
         'backgroundColor': theme.palette.Brand[700],
         ':hover': {
-          ...provided[':hover'],
+          ...styles[':hover'],
           backgroundColor: theme.palette.Brand[700],
         },
       },
       ':hover': {
-        ...provided,
+        ...styles[':hover'],
         backgroundColor: !state.isSelected && theme.palette.Neutral[500],
       },
     };
   },
-  input: styles => ({
+  input: (styles: any) => ({
     ...styles,
     fontFamily: 'Gilroy-SemiBold',
     borderRadius: '8px',
@@ -84,18 +99,18 @@ export const selectStyles = ({ menuWidth, menuLeft, theme, error }) => ({
     caretColor: theme.cmp.input.placeholder,
     margin: 0,
   }),
-  valueContainer: styles => ({
+  valueContainer: (styles: any) => ({
     ...styles,
     padding: '2px 8px',
     margin: 0,
   }),
-  placeholder: styles => ({
+  placeholder: (styles: any) => ({
     ...styles,
     color: theme.cmp.input.placeholder,
     fontSize: theme.typography.fontSize.body.M,
     margin: 0,
   }),
-  control: styles => ({
+  control: (styles: any) => ({
     ...styles,
     'width': '100%',
     'minHeight': '44px',
@@ -115,7 +130,7 @@ export const selectStyles = ({ menuWidth, menuLeft, theme, error }) => ({
     'justifyContent': 'space-between',
     'alignitems': 'center',
   }),
-  dropdownIndicator: styles => ({
+  dropdownIndicator: (styles: any) => ({
     ...styles,
     'color': theme.palette.Neutral[400],
     '&:hover': {
@@ -123,7 +138,7 @@ export const selectStyles = ({ menuWidth, menuLeft, theme, error }) => ({
     },
     'cursor': 'pointer',
   }),
-  clearIndicator: styles => ({
+  clearIndicator: (styles: any) => ({
     ...styles,
     'cursor': 'pointer',
     'color': theme.palette.Neutral[400],
@@ -134,11 +149,26 @@ export const selectStyles = ({ menuWidth, menuLeft, theme, error }) => ({
   indicatorSeparator: () => ({
     display: 'none',
   }),
-  singleValue: (provided, state) => ({
-    ...provided,
+  singleValue: (styles: any, state: SingleValueProps) => ({
+    ...styles,
     opacity: state.isDisabled ? 0.5 : 1,
     transition: 'opacity 300ms',
     color: theme.cmp.input.color,
     margin: 0,
+  }),
+  multiValue: (styles: any) => {
+    return {
+      ...styles,
+      backgroundColor: theme.palette.Neutral[700],
+    };
+  },
+  multiValueLabel: (styles: any) => ({
+    ...styles,
+    color: theme.cmp.input.color,
+  }),
+  multiValueRemove: (styles: any) => ({
+    ...styles,
+    cursor: 'pointer',
+    color: theme.palette.Status.Rose[400],
   }),
 });
