@@ -1,10 +1,14 @@
+import { SearchForm } from '@components/private/home/SearchForm/SearchForm';
 import { Layout } from '@layout/Layout';
-import { deleteCookie, getCookie } from 'cookies-next';
-import { NextPage, NextPageContext } from 'next';
-import { AppContext } from 'next/app';
+import { NextPage } from 'next';
+import styled from 'styled-components';
 
 const Home = () => {
-  return <>sdfsd</>;
+  return (
+    <Container>
+      <SearchForm isLoading={false} onSearch={values => console.log('')} />
+    </Container>
+  );
 };
 
 Home.getLayout = function getLayout(page: NextPage) {
@@ -12,3 +16,8 @@ Home.getLayout = function getLayout(page: NextPage) {
 };
 
 export default Home;
+
+const Container = styled.div`
+  width: 100%;
+  padding: 0 48px;
+`;

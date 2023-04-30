@@ -15,8 +15,9 @@ import {
 import { selectStyles } from './selectStyles';
 
 export interface SelectDefaultOptionProps {
-  label: string;
-  value: string;
+  id?: number | string;
+  label: string | number;
+  value: string | number;
   helper?: string;
   icon?: React.ReactElement;
 }
@@ -35,6 +36,7 @@ export interface SelectInputProps {
   menuPlacement?: SekectMenuPlacement;
   label?: string;
   placeholder?: string;
+  isMulti?: boolean;
   menuWidth?: string;
   menuLeft?: string;
   disabled?: boolean;
@@ -56,6 +58,7 @@ export const SelectInput = forwardRef<any, SelectInputProps>(
       menuPlacement,
       label,
       placeholder,
+      isMulti,
       menuWidth,
       menuLeft,
       disabled,
@@ -93,7 +96,7 @@ export const SelectInput = forwardRef<any, SelectInputProps>(
             }}
             ref={forwardedRef}
             menuPortalTarget={document.body}
-            isMulti={false}
+            isMulti={isMulti}
             isClearable
             isDisabled={disabled}
             closeMenuOnSelect

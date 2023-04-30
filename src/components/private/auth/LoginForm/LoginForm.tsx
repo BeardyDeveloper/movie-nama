@@ -25,10 +25,9 @@ export const LoginForm: FC<LoginFormProps> = props => {
     watch,
     setValue,
     formState: { errors },
-    getValues,
   } = methods;
 
-  const onSubmit = (values: LoginFormValues) => {
+  const onSubmit = (values: LoginFormValues): void => {
     if (Object.keys(errors).length === 0) {
       onLogin(values);
     }

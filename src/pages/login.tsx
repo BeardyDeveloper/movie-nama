@@ -6,10 +6,9 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import styled, { css } from 'styled-components';
 import { ErrorProps } from './api/Interfaces';
-import { getCookie, setCookie } from 'cookies-next';
+import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 import { ToastType, toaster } from '@sharedComponents/Toaster/Toaster';
-import { NextPageContext } from 'next';
 
 const Login = () => {
   const router = useRouter();
